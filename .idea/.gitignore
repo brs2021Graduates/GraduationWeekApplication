@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/resources/dataBase.properties
+/resources/log4j.properties
+# Editor-based HTTP Client requests
+/httpRequests/
+
+*.xlsx
+
+/target
+
