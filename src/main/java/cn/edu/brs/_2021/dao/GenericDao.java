@@ -1,10 +1,5 @@
 package cn.edu.brs._2021.dao;
 
-import cn.edu.brs._2021.entity.User;
-import cn.edu.brs._2021.entity.activity.StandardActivity;
-import org.springframework.dao.DataAccessException;
-
-import java.io.Serializable;
 import java.util.List;
 
 

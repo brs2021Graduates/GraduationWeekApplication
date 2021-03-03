@@ -1,8 +1,7 @@
 package cn.edu.brs._2021.dao;
 
 import cn.edu.brs._2021.dao.SQLProvider.ActivityDaoSQLProvider;
-import cn.edu.brs._2021.dao.SQLProvider.UserDaoSQLProvider;
-import cn.edu.brs._2021.entity.activity.StandardActivity;
+import cn.edu.brs._2021.entity.Activity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
@@ -10,24 +9,24 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface IActivityDao extends GenericDao<StandardActivity>{
+public interface IActivityDao extends GenericDao<Activity>{
     @Override
     @Insert("INSERT INTO activity(activity_id, activity_name, description, start_time, end_time, place_id, activity_type) " +
             "VALUES (#{activityId}, #{name}, #{description}, #{startTime}, #{endTime}, #{placeId}, #{activityType})")
     @Options(useGeneratedKeys = true, keyProperty = "activityId", keyColumn = "activity_id")
-    void insert(StandardActivity entity);
+    void insert(Activity entity);
 
     @Override
     @UpdateProvider(type = ActivityDaoSQLProvider.class, method = "provideUpdateSQL")
-    int update(StandardActivity entity);
+    int update(Activity entity);
 
     @Override
     @Delete("DELETE FROM activity WHERE activity_id = #{activityId}")
-    int delete(StandardActivity entity);
+    int delete(Activity entity);
 
     @Override
     @SelectProvider(type = ActivityDaoSQLProvider.class, method = "provideCountSQL")
-    int count(@Nullable StandardActivity entity);
+    int count(@Nullable Activity entity);
 
     @Override
     @Select("SELECT * FROM activity WHERE activity_id = #{activityId}")
@@ -39,14 +38,14 @@ public interface IActivityDao extends GenericDao<StandardActivity>{
             @Result(property = "placeId", column = "place_id"),
             @Result(property = "activityType", column = "activity_type")
     })
-    StandardActivity get(StandardActivity entity);
+    Activity get(Activity entity);
 
     @Override
     @ResultMap("activityMap")
     @Select("SELECT * FROM activity")
-    List<StandardActivity> selectAll();
+    List<Activity> selectAll();
 
-    <T extends StandardActivity> T test(T entity);
+    <T extends Activity> T test(T entity);
 
 
 

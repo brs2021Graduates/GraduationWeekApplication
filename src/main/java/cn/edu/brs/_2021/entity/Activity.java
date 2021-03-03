@@ -1,10 +1,9 @@
-package cn.edu.brs._2021.entity.activity;
+package cn.edu.brs._2021.entity;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
-public class StandardActivity implements Serializable {
+public class Activity implements Serializable {
     //活动Id
     private Integer activityId;
     //活动名字
@@ -17,20 +16,25 @@ public class StandardActivity implements Serializable {
     private Date endTime;
     //地点
     private Integer placeId;
-
+    //活动类型
     private Integer activityType;
 
     public static final int NORMAL_ACTIVITY = 1;
+    private List<User> participantList;
+
     public static final int RANK_ACTIVITY = 2;
+    private Map<User, String> activityResult;
+
     public static final int SINGLE_MATCH_ACTIVITY = 3;
+    private List<Match> activityMatches;
+
     public static final int GROUP_MATCH_ACTIVITY = 4;
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        StandardActivity that = (StandardActivity) o;
+        Activity that = (Activity) o;
         return Objects.equals(activityId, that.activityId) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(startTime, that.startTime) && Objects.equals(endTime, that.endTime) && Objects.equals(placeId, that.placeId) && Objects.equals(activityType, that.activityType);
     }
 
@@ -95,7 +99,7 @@ public class StandardActivity implements Serializable {
         this.activityType = activityType;
     }
 
-    public StandardActivity(Integer activityId, String name, String description, Date startTime, Date endTime, Integer placeId, Integer activityType) {
+    public Activity(Integer activityId, String name, String description, Date startTime, Date endTime, Integer placeId, Integer activityType) {
         this.activityId = activityId;
         this.name = name;
         this.description = description;
@@ -105,7 +109,7 @@ public class StandardActivity implements Serializable {
         this.activityType = activityType;
     }
 
-    public StandardActivity() {
+    public Activity() {
     }
 
     @Override

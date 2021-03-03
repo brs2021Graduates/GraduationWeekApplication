@@ -9,6 +9,10 @@ import cn.edu.brs._2021.service.wechat.utility.RepliedMessage;
 import cn.edu.brs._2021.service.wechat.utility.WechatMessageUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class TextMessageStrategy implements WechatMessageStrategy {
     final IUserDao userDao;
@@ -27,11 +31,12 @@ public class TextMessageStrategy implements WechatMessageStrategy {
             if(userDao.count(new User().setWechatId(senderId)) == 0)
                 RedisUtil.setKey(senderId, "NA");
             else
-                RedisUtil.setKey(senderId, 9);
+                RedisUtil.setKey(senderId, "9");
         }
 
         String questionCode = (String) RedisUtil.getValue(senderId);
 
+        //正常情况，根据回应的问题编码调用对应的处理方法
         return switch (questionCode) {
             case "NA"  -> _00IllegalRegister(senderId, message);
             case "0-0" -> _00(senderId, message);
@@ -39,7 +44,16 @@ public class TextMessageStrategy implements WechatMessageStrategy {
             case "0-2" -> _02(senderId, message);
             case "0-3" -> _03(senderId, message);
             case "0-4" -> _04(senderId, message);
+
             case "9"   -> _9(senderId, message);
+            case "1"   -> _1(senderId, message);
+            case "2"   -> _2(senderId, message);
+            case "3"   -> _3(senderId, message);
+
+
+
+            case "end" -> _end(senderId, message);
+
             default -> WechatMessageUtil.generateErrorMessage(senderId);
         };
 
@@ -89,7 +103,7 @@ public class TextMessageStrategy implements WechatMessageStrategy {
         String username = (String) RedisUtil.getValue(senderId + "Name");
 
         //学号格式不对
-        if (message.length() != 11 && message.startsWith("20")){
+        if (message.length() != 11 || !message.startsWith("20")){
             return WechatMessageUtil.generateTextMessage(senderId,
                     RepliedMessage.getRepliedMessage("0-1-invalidInput"));
         }
@@ -131,7 +145,7 @@ public class TextMessageStrategy implements WechatMessageStrategy {
     private WechatMessage _04(String senderId, String message){
         //4-12位中文、英文、数字但不包括下划线等符号
         //不满足条件
-        if (!message.matches("^[a-zA-Z]\\w{5,17}$")){
+        if (!message.matches("^[a-zA-Z0-9]\\w{5,17}$")){
             return WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("0-4-invalidInput"));
         }
         userDao.update(new User().setWechatId(senderId).setPassword(message));
@@ -140,6 +154,96 @@ public class TextMessageStrategy implements WechatMessageStrategy {
     }
 
     private WechatMessage _9(String senderId, String message) {
-        return WechatMessageUtil.generateTextMessage(senderId, message);
+        if (message.matches("^[1-3]*$")){
+            RedisUtil.setKey(senderId, message);
+        }
+        return switch (message) {
+            case "1"  -> WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("1"));
+            case "2" -> WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("2"));
+            case "3" -> WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("3"));
+            default -> WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("menu-invalidInput"));
+        };
     }
+
+    private WechatMessage _1(String senderId, String message){
+        if (message.equals("9")){
+            RedisUtil.setKey(senderId, "9");
+        }
+        return switch (message){
+            case "1"  -> _11(senderId, message);
+            case "2" -> _12(senderId, message);
+            case "9" -> WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("9"));
+            default -> WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("menu-invalidInput"));
+        };
+    }
+
+    private WechatMessage _11(String senderId, String message){
+        RedisUtil.setKey(senderId, "end");
+        //TODO: 在数据库内查询活动信息并反馈。现做假数据实现。
+        return WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("1-1")
+            .replace("#{普通活动信息}",
+                "成人礼  2021/05/28 0:00a.m. Pending  未开始\n" +
+                "毕业晚会 2021/05/31 0:00a.m. Pending  未开始\n" +
+                "毕业典礼 2021/06/01 0:00a.m. Pending  未开始")
+            .replace("#{排名比赛信息}", "暂无记录")
+            .replace("#{单人比赛信息}", "暂无记录")
+            .replace("#{团体比赛信息}", "暂无记录")
+        );
+    }
+
+    private WechatMessage _12(String senderId, String message){
+        RedisUtil.setKey(senderId, "end");
+        return WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("1-2")
+            .replace("#{组队信息}", "暂无记录")
+        );
+    }
+
+    private WechatMessage _2(String senderId, String message) {
+        if (message.equals("9")){
+            RedisUtil.setKey(senderId, 9);
+        }
+        return switch (message) {
+            case "1" -> _21(senderId, message);
+            case "2" -> _22(senderId, message);
+            case "3" -> _23(senderId, message);
+            case "9" -> WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("9"));
+            default  -> WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("menu-invalidInput"));
+        };
+    }
+
+    private WechatMessage _21(String senderId, String message){
+        RedisUtil.setKey(senderId, "end");
+        return WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("2-1")
+                .replace("#{个人积分}", "10.0")
+                .replace("#{团队积分}", "暂无记录")
+        );
+    }
+
+    private WechatMessage _22(String senderId, String message){
+        RedisUtil.setKey(senderId, "end");
+        return WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("2-2")
+                .replace("#{排行榜}", "暂无记录")
+        );
+    }
+
+    private WechatMessage _23(String senderId, String message){
+        RedisUtil.setKey(senderId, "end");
+        return WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("2-3")
+                .replace("#{排行榜}", "暂无记录")
+        );
+    }
+
+    private WechatMessage _3(String senderId, String message){
+        //TODO: 将建议纳入数据库。
+        RedisUtil.setKey(senderId, "end");
+        return WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("3-1"));
+    }
+
+    private WechatMessage _end(String senderId, String message){
+        RedisUtil.setKey(senderId, "9");
+        return WechatMessageUtil.generateTextMessage(senderId, RepliedMessage.getRepliedMessage("9"));
+    };
+
+
+
 }

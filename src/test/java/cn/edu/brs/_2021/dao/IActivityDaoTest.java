@@ -1,7 +1,7 @@
 package cn.edu.brs._2021.dao;
 
 
-import cn.edu.brs._2021.entity.activity.StandardActivity;
+import cn.edu.brs._2021.entity.Activity;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,10 +22,10 @@ public class IActivityDaoTest {
     @Test
     @Transactional
     public void insert() {
-        StandardActivity activity = new StandardActivity(null, "测试普通活动", "这是一个普通活动的测试",
+        Activity activity = new Activity(null, "测试普通活动", "这是一个普通活动的测试",
                 new Date(2021 - 1900, Calendar.SEPTEMBER,5, 0, 0),
                 new Date(2021 - 1900,Calendar.OCTOBER,5, 0, 0),
-                1 , StandardActivity.NORMAL_ACTIVITY);
+                1 , Activity.NORMAL_ACTIVITY);
         activityDao.insert(activity);
         System.out.println("创建的活动主键id为: " + activity.getActivityId());
     }
@@ -33,12 +33,12 @@ public class IActivityDaoTest {
     @Test
     @Transactional
     public void update() {
-        StandardActivity activity = new StandardActivity(null, "测试普通活动", "这是一个普通活动的测试",
+        Activity activity = new Activity(null, "测试普通活动", "这是一个普通活动的测试",
                 new Date(2021 - 1900, Calendar.SEPTEMBER,5, 0, 0),
                 new Date(2021 - 1900,Calendar.OCTOBER,5, 0, 0),
-                1 , StandardActivity.NORMAL_ACTIVITY);
+                1 , Activity.NORMAL_ACTIVITY);
         activityDao.insert(activity);
-        StandardActivity pramActivity = new StandardActivity();
+        Activity pramActivity = new Activity();
         pramActivity.setActivityId(activity.getActivityId());
         pramActivity.setDescription("修改修改修改");
         activityDao.update(pramActivity);
