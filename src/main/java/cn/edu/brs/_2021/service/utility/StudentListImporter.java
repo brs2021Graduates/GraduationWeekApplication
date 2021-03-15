@@ -1,8 +1,7 @@
-package cn.edu.brs._2021.service.wechat.utility;
+package cn.edu.brs._2021.service.utility;
 
 import cn.edu.brs._2021.dao.IUserDao;
 import cn.edu.brs._2021.entity.User;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -23,10 +22,16 @@ public class StudentListImporter {
         ArrayList<User> students = new ArrayList<>();
         for (int i = 0; i < studentCount; i++) {
             Row row = targetSheet.getRow(i);
-            students.add(new User(Long.parseLong(row.getCell(1).getStringCellValue()), null, row.getCell(2).getStringCellValue(), null, null, null, null, null, null));
+            students.add(new User(Long.parseLong(row.getCell(1).getStringCellValue()), null, row.getCell(2).getStringCellValue(), null, (int) row.getCell(0).getNumericCellValue(), null, null, null, null));
         }
+        System.out.println(students);
+
         ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         IUserDao userDao = ac.getBean(IUserDao.class);
-        students.forEach(userDao::insert);
+
+        for (User student : students) {
+            userDao.update(student);
+        }
+
     }
 }

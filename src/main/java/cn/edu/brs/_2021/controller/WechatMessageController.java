@@ -20,7 +20,7 @@ public class WechatMessageController {
         return wechatMessageHandler.verifyAPI(signature, timestamp, nonce, echostr);
     }
 
-    @RequestMapping(value = "/wechat", method = RequestMethod.POST, produces="application/xml;charset=UTF-8")
+    @RequestMapping(value = "/api/wechat", method = RequestMethod.POST, produces="application/xml;charset=UTF-8")
     public @ResponseBody String processMessage(@RequestBody String wechatMessage)
     {
         return wechatMessageHandler.processMessage(wechatMessage);

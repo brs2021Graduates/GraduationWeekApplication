@@ -25,4 +25,11 @@
     </bean>
 
     <bean name="Logger" class="cn.edu.brs._2021.service.aspect.LogUtil"/>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/api/web/activity/**" />
+            <bean class="cn.edu.brs._2021.controller.web.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

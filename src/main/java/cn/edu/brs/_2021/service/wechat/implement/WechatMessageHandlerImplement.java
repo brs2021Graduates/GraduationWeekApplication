@@ -6,8 +6,8 @@ import cn.edu.brs._2021.service.wechat.implement.messageStrategy.EventStrategy;
 import cn.edu.brs._2021.service.wechat.implement.messageStrategy.PictureMessageStrategy;
 import cn.edu.brs._2021.service.wechat.implement.messageStrategy.TextMessageStrategy;
 import cn.edu.brs._2021.service.wechat.implement.messageStrategy.VideoMessageStrategy;
-import cn.edu.brs._2021.service.wechat.utility.SHA1;
-import cn.edu.brs._2021.service.wechat.utility.WechatMessageUtil;
+import cn.edu.brs._2021.service.utility.SHA1;
+import cn.edu.brs._2021.service.utility.WechatMessageUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

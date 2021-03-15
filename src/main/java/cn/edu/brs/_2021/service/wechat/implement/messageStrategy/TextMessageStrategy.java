@@ -2,16 +2,12 @@ package cn.edu.brs._2021.service.wechat.implement.messageStrategy;
 
 import cn.edu.brs._2021.dao.IUserDao;
 import cn.edu.brs._2021.entity.User;
-import cn.edu.brs._2021.service.wechat.utility.RedisUtil;
+import cn.edu.brs._2021.service.utility.RedisUtil;
 import cn.edu.brs._2021.entity.WechatMessage;
 import cn.edu.brs._2021.service.wechat.WechatMessageStrategy;
-import cn.edu.brs._2021.service.wechat.utility.RepliedMessage;
-import cn.edu.brs._2021.service.wechat.utility.WechatMessageUtil;
+import cn.edu.brs._2021.service.utility.RepliedMessage;
+import cn.edu.brs._2021.service.utility.WechatMessageUtil;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Service
 public class TextMessageStrategy implements WechatMessageStrategy {

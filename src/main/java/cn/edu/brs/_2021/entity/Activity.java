@@ -18,6 +18,8 @@ public class Activity implements Serializable {
     private Integer placeId;
     //活动类型
     private Integer activityType;
+    //能否报名
+    private Integer joinable;
 
     public static final int NORMAL_ACTIVITY = 1;
     private List<User> participantList;
@@ -34,69 +36,85 @@ public class Activity implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Activity that = (Activity) o;
-        return Objects.equals(activityId, that.activityId) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(startTime, that.startTime) && Objects.equals(endTime, that.endTime) && Objects.equals(placeId, that.placeId) && Objects.equals(activityType, that.activityType);
+        Activity activity = (Activity) o;
+        return Objects.equals(activityId, activity.activityId) && Objects.equals(name, activity.name) && Objects.equals(description, activity.description) && Objects.equals(startTime, activity.startTime) && Objects.equals(endTime, activity.endTime) && Objects.equals(placeId, activity.placeId) && Objects.equals(activityType, activity.activityType) && Objects.equals(participantList, activity.participantList) && Objects.equals(activityResult, activity.activityResult) && Objects.equals(activityMatches, activity.activityMatches);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(activityId, name, description, startTime, endTime, placeId, activityType);
+        return Objects.hash(activityId, name, description, startTime, endTime, placeId, activityType, participantList, activityResult, activityMatches);
     }
 
     public Integer getActivityId() {
         return activityId;
     }
 
-    public void setActivityId(Integer activityId) {
+    public Activity setActivityId(Integer activityId) {
         this.activityId = activityId;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Activity setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public Activity setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public Activity setStartTime(Date startTime) {
         this.startTime = startTime;
+        return this;
     }
 
     public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public Activity setEndTime(Date endTime) {
         this.endTime = endTime;
+        return this;
     }
 
     public Integer getPlaceId() {
         return placeId;
     }
 
-    public void setPlaceId(Integer placeId) {
+    public Activity setPlaceId(Integer placeId) {
         this.placeId = placeId;
+        return this;
     }
 
     public Integer getActivityType() {
         return activityType;
     }
 
-    public void setActivityType(Integer activityType) {
+    public Activity setActivityType(Integer activityType) {
         this.activityType = activityType;
+        return this;
+    }
+
+    public Integer getJoinable() {
+        return joinable;
+    }
+
+    public Activity setJoinable(Integer joinable) {
+        this.joinable = joinable;
+        return this;
     }
 
     public Activity(Integer activityId, String name, String description, Date startTime, Date endTime, Integer placeId, Integer activityType) {
@@ -109,12 +127,14 @@ public class Activity implements Serializable {
         this.activityType = activityType;
     }
 
+
+
     public Activity() {
     }
 
     @Override
     public String toString() {
-        return "StandardActivity{" +
+        return "Activity{" +
                 "activityId=" + activityId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
@@ -122,6 +142,10 @@ public class Activity implements Serializable {
                 ", endTime=" + endTime +
                 ", placeId=" + placeId +
                 ", activityType=" + activityType +
+                ", joinable=" + joinable +
+                ", participantList=" + participantList +
+                ", activityResult=" + activityResult +
+                ", activityMatches=" + activityMatches +
                 '}';
     }
 }

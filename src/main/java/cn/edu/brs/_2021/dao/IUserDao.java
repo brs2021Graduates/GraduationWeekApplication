@@ -6,7 +6,9 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface IUserDao extends GenericDao<User> {
@@ -44,7 +46,6 @@ public interface IUserDao extends GenericDao<User> {
     @Select("SELECT * FROM user")
     List<User> selectAll();
 
-
     /**
      * 此方法用于绑定微信账号时使用用户姓名更新微信号
      * @param user 必须提供 wechatId, name参数。
@@ -61,4 +62,17 @@ public interface IUserDao extends GenericDao<User> {
     @Update("UPDATE user SET wechat_id = NULL WHERE wechat_id = #{wechatId}")
     int unbindWechatId(User user);
 
+
+    @Select("SELECT count(*) FROM user WHERE student_id = #{studentId} and password = #{password}")
+    int validateUser(User user);
+
+    @ResultMap("userMap")
+    @Select("SELECT u.* FROM user_activity_table AS ua LEFT JOIN user AS u on u.student_id = ua.student_id WHERE ua.activity_id = #{activityID}")
+    //SELECT u.*, a.activity_id FROM user_activity_table AS ua LEFT JOIN user AS u on u.student_id = ua.student_id LEFT JOIN" +
+        //            "activity a on a.activity_id = ua.activity_id WHERE ua.activity_id = #{activityID}
+    List<User> findParticipateUserByActivityId(int activityId);
+
+    @ResultMap("userMap")
+    @Select("SELECT student_id, user_point, user_name FROM user ORDER BY user_point DESC")
+    List<User> findUserPoint(@Param("limit") int limit);
 }

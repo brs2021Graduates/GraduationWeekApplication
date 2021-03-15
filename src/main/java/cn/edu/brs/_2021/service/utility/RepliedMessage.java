@@ -1,4 +1,4 @@
-package cn.edu.brs._2021.service.wechat.utility;
+package cn.edu.brs._2021.service.utility;
 
 public abstract class RepliedMessage {
     public static String getRepliedMessage(String questionCode){
@@ -112,6 +112,8 @@ public abstract class RepliedMessage {
 
             //Impossible
             default -> "";
+
+            
         };
     }
 }

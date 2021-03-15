@@ -115,4 +115,23 @@ public class IUserDaoTest {
         testInsert();
         System.out.println(userDao.selectAll());
     }
+
+    @Test
+    @Transactional
+    public void testFindParticipateUserByActivityId(){
+        System.out.println(userDao.findParticipateUserByActivityId(1));
+    }
+
+    @Test
+    @Transactional
+    public void validateUser(){
+        System.out.println(userDao.validateUser(new User().setPassword("gd19880818").setStudentId(20130702358L)));
+        System.out.println(userDao.validateUser(new User().setPassword("gd19880818").setStudentId(122L)));
+    }
+
+    @Test
+    @Transactional
+    public void testFindUserPoint(){
+        System.out.println(userDao.findUserPoint(100));
+    }
 }

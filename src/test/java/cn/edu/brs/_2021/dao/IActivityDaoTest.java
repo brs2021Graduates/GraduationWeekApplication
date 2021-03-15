@@ -61,7 +61,7 @@ public class IActivityDaoTest {
     @Test
     @Transactional
     public void get() {
-        insert();
+        System.out.println(activityDao.get(new Activity().setActivityId(1)));
     }
 
 
@@ -72,5 +72,32 @@ public class IActivityDaoTest {
             insert();
         }
         System.out.println(activityDao.selectAll());
+    }
+
+
+    @Test
+    @Transactional
+    public void findParticipateActivityByUserId(){
+        System.out.println(activityDao.findParticipateActivityByUserId(20181015519L));
+    }
+
+    @Test
+    @Transactional
+    public void testFindAll(){
+        System.out.println(activityDao.findAll(null));
+        System.out.println(activityDao.findAll(new Activity().setJoinable(1)));
+    }
+
+    @Test
+    @Transactional
+    public void testJoinActivity(){
+        System.out.println(activityDao.joinActivity(20181015519L, 1));
+    }
+
+    @Test
+    @Transactional
+    public void testFindUserPoint(){
+        System.out.println(
+        );
     }
 }

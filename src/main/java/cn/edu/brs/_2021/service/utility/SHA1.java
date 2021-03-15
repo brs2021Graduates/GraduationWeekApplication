@@ -1,4 +1,4 @@
-package cn.edu.brs._2021.service.wechat.utility;
+package cn.edu.brs._2021.service.utility;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

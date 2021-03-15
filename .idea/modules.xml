@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../GWFrontEnd/GWFrontEnd.iml" filepath="$PROJECT_DIR$/../GWFrontEnd/GWFrontEnd.iml" />
       <module fileurl="file://$PROJECT_DIR$/../GraduationWeekFrontEnd/GraduationWeekFrontEnd.iml" filepath="$PROJECT_DIR$/../GraduationWeekFrontEnd/GraduationWeekFrontEnd.iml" />
     </modules>
   </component>

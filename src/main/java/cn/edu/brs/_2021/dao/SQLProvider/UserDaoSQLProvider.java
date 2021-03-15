@@ -45,8 +45,8 @@ public class UserDaoSQLProvider {
             if (user.getName() != null) WHERE("user_name = #{name}");
             if (user.getSex() != null) WHERE("sex = #{sex}");
             if (user.getNickname() != null) WHERE("nickname = #{nickname}");
-            if (user.getPoint() != null) WHERE("password = #{password}");
-            if (user.getPassword() != null) WHERE("user_point = #{point}");
+            if (user.getPoint() != null) WHERE("user_point = #{point}");
+            if (user.getPassword() != null) WHERE("password = #{password}");
             if (user.getWechatId() != null) WHERE("wechat_id = #{wechatId}");
             if (user.getStudentId() != null) WHERE("student_id = #{studentId}");
         }}.toString();

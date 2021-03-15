@@ -1,5 +1,7 @@
 package cn.edu.brs._2021.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -19,6 +21,7 @@ public class User implements Serializable {
     Integer sex;
     Integer role;
     Float point;
+    @JsonIgnore
     String password;
 
 

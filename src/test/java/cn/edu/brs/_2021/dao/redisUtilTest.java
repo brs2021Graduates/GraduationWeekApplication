@@ -1,12 +1,10 @@
 package cn.edu.brs._2021.dao;
 
-import cn.edu.brs._2021.service.wechat.utility.RedisUtil;
+import cn.edu.brs._2021.service.utility.RedisUtil;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.web.context.support.XmlWebApplicationContext;
 
 public class redisUtilTest {
 

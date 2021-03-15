@@ -15,6 +15,6 @@ public class Match<T> {
     public static final int SINGLE_MATCH_ACTIVITY = 3;
     public static final int GROUP_MATCH_ACTIVITY = 4;
 
-    List<T> participantUserList;
+    List<T> participantList;
     Map<T, String> MatchResultMap;
 }
